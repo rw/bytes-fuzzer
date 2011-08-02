@@ -1,5 +1,5 @@
-Shag: a simple fuzzing tool to verify correctness.
-==================================================
+Shag: a fuzzing tool to verify correctness.
+===========================================
 
 Description
 -----------

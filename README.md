@@ -10,6 +10,7 @@ satisfies the following requirement:
     input == decode(encode(input))
 
 It does this by constructing inputs in two ways:
+
 1. Testing combinations of edge cases to find faulty logic, and
 2. Hammering the program with random-looking input.
 

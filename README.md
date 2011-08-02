@@ -10,8 +10,8 @@ satisfies the following requirement:
     input == decode(encode(input))
 
 It does this by constructing inputs in two ways:
-- Testing combinations of edge cases to find faulty logic, and
-- Hammering the program with random-looking input.
+1. Testing combinations of edge cases to find faulty logic, and
+2. Hammering the program with random-looking input.
 
 How to use
 ----------
@@ -19,7 +19,7 @@ How to use
 TODO
 
 License
-=======
+-------
 
 Copyright (c) 2011, Robert Winslow
 All rights reserved.

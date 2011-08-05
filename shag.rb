@@ -9,7 +9,7 @@ dir = 'shags'
 
 cmd                    = ARGV[0] # e.g. sample.sh, a wrapper around 'cat -'
 minimum, maximum       = ARGV[1].to_i, ARGV[2].to_i # 0-255
-min_length, max_length = ARGV[4].to_i, ARGV[3].to_i # in bytes
+min_length, max_length = ARGV[3].to_i, ARGV[4].to_i # in bytes
 iterations             = ARGV[5].to_i
 
 # setup
@@ -42,10 +42,10 @@ def test_case(dir, cmd, minimum, maximum, min_length, max_length, in_fn)
   if success
     File.delete(in_fn)
     File.delete(out_fn)
-    return success, input, "PASS. #{length}, #{minimum}, #{maximum}: #{in_fn}"
+    return success, input, "PASS. #{length} bytes, #{minimum}, #{maximum}: #{in_fn}"
   else
     # leave fuzzies around if failure
-    return success, input, "FAIL. #{length}, #{minimum}, #{maximum}: #{in_fn}"
+    return success, input, "FAIL. #{length} bytes, #{minimum}, #{maximum}: #{in_fn}"
   end
 end
 
@@ -54,11 +54,7 @@ def same?(fn0, fn1)
 end
 
 def data(length, minimum, maximum)
-  #puts "making random data: #{length}bytes"
-  (0..length).map do |n|
-    x = rand(maximum-minimum) + minimum
-    x
-  end.pack('C*')
+  Array.new(length) { rand(maximum-minimum) + minimum }.pack('c*')
 end
 
 main(cmd, dir, minimum, maximum, min_length, max_length, iterations)

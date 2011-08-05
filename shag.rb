@@ -1,31 +1,32 @@
 #!/usr/bin/env ruby
 
-unless ARGV.size.eql?(5)
-  raise "Try invoking like this: ./shag.rb './sample.sh' 0 255 10 10'"
+unless ARGV.size.eql?(6)
+  raise "Try invoking like this: ./shag.rb './sample.sh' 0 255 0 10 10'"
 end
 
 # variables (will be put into option parser later)
 dir = 'shags'
 
-cmd              = ARGV[0] # e.g. sample.sh, a wrapper around 'cat -'
-minimum, maximum = ARGV[1].to_i, ARGV[2].to_i # 0-255
-max_length       = ARGV[3].to_i # in bytes
-iterations       = ARGV[4].to_i
+cmd                    = ARGV[0] # e.g. sample.sh, a wrapper around 'cat -'
+minimum, maximum       = ARGV[1].to_i, ARGV[2].to_i # 0-255
+min_length, max_length = ARGV[4].to_i, ARGV[3].to_i # in bytes
+iterations             = ARGV[5].to_i
 
 # setup
 Dir.mkdir(dir) unless File.exists?(dir)
 
-def main(cmd, dir, minimum, maximum, max_length, iterations)
+def main(cmd, dir, minimum, maximum, min_length, max_length, iterations)
   (0...iterations).each do |i|
-    fn = File.join(dir, "case-#{i}")
-    success, input, msg = test_case(dir, cmd, minimum, maximum, max_length, fn)
+    fn = File.join(dir, "case-#{i+1}")
+    success, input, msg = test_case(dir, cmd, minimum, maximum,
+                                    min_length, max_length, fn)
     puts "#{i+1} of #{iterations}: #{msg}"
   end
 end
 
-def test_case(dir, cmd, minimum, maximum, max_length, in_fn)
+def test_case(dir, cmd, minimum, maximum, min_length, max_length, in_fn)
   out_fn = in_fn + '_result'
-  length = rand(max_length)
+  length = rand(max_length - min_length) + min_length
   input = data(length, minimum, maximum)
 
   # TODO: use stdio and pipes instead of writing to disk
@@ -60,4 +61,4 @@ def data(length, minimum, maximum)
   end.pack('C*')
 end
 
-main(cmd, dir, minimum, maximum, max_length, iterations)
+main(cmd, dir, minimum, maximum, min_length, max_length, iterations)

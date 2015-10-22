@@ -1,10 +1,10 @@
-Shag: a fuzzing tool to verify correctness.
-===========================================
+BytesFuzzer: a fuzzing tool to verify correctness.
+==================================================
 
 Description
 -----------
 
-Shag checks that a bijective encoder (like a compression algorithm)
+BytesFuzzer checks that a bijective encoder (like a compression algorithm)
 satisfies the following requirement:
 
     input == decode(encode(input))
@@ -16,6 +16,7 @@ It does this by constructing inputs in two ways:
 
 How to use
 ----------
+See EXAMPLES
 
 TODO
 

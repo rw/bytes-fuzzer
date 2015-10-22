@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
 unless ARGV.size.eql?(6)
-  raise "Try invoking like this: ./shag.rb './sample.sh' 0 255 0 10 10'"
+  raise "Try invoking like this: #{ARGV[0]} './sample.sh' 0 255 0 10 10'"
 end
 
 # variables (will be put into option parser later)
-dir = 'shags'
+dir = 'fuzzes'
 
 cmd                    = ARGV[0] # e.g. sample.sh, a wrapper around 'cat -'
 minimum, maximum       = ARGV[1].to_i, ARGV[2].to_i # 0-255
